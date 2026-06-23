@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENVY — A New Standard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- ════ INTRO CINEMATIC ════ -->
+  <div id="intro-screen">
+    <canvas id="intro-canvas"></canvas>
+    <div id="intro-logo-wrap">
+      <img src="images/envy-logo.png" alt="ENVY" id="intro-logo" />
+    </div>
+    <div id="intro-tagline">
+      <span class="it-char" style="--d:0">A</span>
+      <span class="it-char" style="--d:1">&nbsp;</span>
+      <span class="it-char" style="--d:2">N</span>
+      <span class="it-char" style="--d:3">E</span>
+      <span class="it-char" style="--d:4">W</span>
+      <span class="it-char" style="--d:5">&nbsp;</span>
+      <span class="it-char" style="--d:6">S</span>
+      <span class="it-char" style="--d:7">T</span>
+      <span class="it-char" style="--d:8">A</span>
+      <span class="it-char" style="--d:9">N</span>
+      <span class="it-char" style="--d:10">D</span>
+      <span class="it-char" style="--d:11">A</span>
+      <span class="it-char" style="--d:12">R</span>
+      <span class="it-char" style="--d:13">D</span>
+    </div>
+    <div id="intro-line"></div>
+    <button id="intro-skip">SKIP</button>
+  </div>
+
+  <!-- Custom cursor -->
+  <div id="cursor">
+    <div class="cursor-ring"></div>
+    <div class="cursor-dot"></div>
+  </div>
+
+  <!-- WebGL canvas -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- Overlays -->
+  <div id="overlay-vignette"></div>
+  <canvas id="noise-canvas"></canvas>
+  <div id="scan-line"></div>
+
+  <!-- ════ MAIN ════ -->
+  <main>
+
+    <!-- Top bar -->
+    <header class="top-bar">
+      <span class="tag">WORLDWIDE INTL.</span>
+      <div class="e-badge">
+        <span>E</span>
+        <div class="e-badge-ring"></div>
+      </div>
+      <span class="tag">EST 2024</span>
+    </header>
+
+    <!-- ── SECTION 1: HERO ── -->
+    <section class="section-hero" id="sec-hero">
+      <div class="logo-wrap" id="logo-wrap">
+        <div class="logo-depth-layer l-back"></div>
+        <img src="images/envy-logo.png" alt="ENVY" class="logo-img" id="logo-img" />
+        <img src="images/envy-logo.png" alt="" class="logo-glitch g1" aria-hidden="true" />
+        <img src="images/envy-logo.png" alt="" class="logo-glitch g2" aria-hidden="true" />
+        <img src="images/envy-logo.png" alt="" class="logo-glitch g3" aria-hidden="true" />
+        <div class="logo-holo-line"></div>
+        <div class="logo-holo-flare"></div>
+      </div>
+
+      <div class="hero-meta">
+        <p class="hero-season">SS 2025 — PRESTIGE COLLECTION</p>
+        <h1 class="hero-headline">WEAR WHAT<br><em>THEY ENVY</em></h1>
+        <p class="hero-sub">Exclusive pieces. Unapologetic presence. Available now — to the few.</p>
+        <div class="hero-badges">
+          <span class="hb">✦ NOW OPEN</span>
+          <span class="hb hb-gold">LIMITED STOCK</span>
+          <span class="hb">✦ WORLDWIDE SHIPPING</span>
+        </div>
+      </div>
+
+      <div class="countdown-block">
+        <p class="cd-label-top">NEXT DROP CLOSES IN</p>
+        <div class="countdown-row">
+          <div class="cd-unit"><span class="cd-num" id="cd-days">00</span><span class="cd-lab">DAYS</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><span class="cd-num" id="cd-hours">00</span><span class="cd-lab">HRS</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><span class="cd-num" id="cd-mins">00</span><span class="cd-lab">MIN</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><span class="cd-num" id="cd-secs">00</span><span class="cd-lab">SEC</span></div>
+        </div>
+      </div>
+
+      <div class="scroll-cue">
+        <span>SCROLL</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 2: COLLECTION STATEMENT ── -->
+    <section class="section-statement reveal-section" id="sec-statement">
+      <div class="statement-inner">
+        <p class="st-eyebrow">THE ENVY PHILOSOPHY</p>
+        <h2 class="statement-text">
+          <span class="st-line">We don't design for approval.</span>
+          <span class="st-line st-italic">We design for dominance.</span>
+        </h2>
+        <p class="statement-body">ENVY is not just a brand. It is an attitude made physical — a signature worn by those who define the room before they enter it. Each piece is engineered for impact and crafted without compromise.</p>
+        <div class="statement-divider"><span></span><span class="sd-diamond">◆</span><span></span></div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 3: PRODUCT GRID ── -->
+    <section class="section-products reveal-section" id="sec-products">
+      <div class="products-header">
+        <p class="prod-eyebrow">SS 2025 COLLECTION — AVAILABLE NOW</p>
+        <h2 class="prod-headline">SELECT PIECES</h2>
+      </div>
+
+      <div class="products-grid">
+
+        <article class="product-card reveal-card" data-price="R 2 800">
+          <div class="pc-image-wrap">
+            <img src="images/img1_01.png" alt="ENVY Signature Tee" class="pc-img" />
+            <img src="images/img1_02.png" alt="" class="pc-img-hover" />
+            <div class="pc-badge">LIMITED</div>
+            <div class="pc-overlay">
+              <button class="pc-cta">RESERVE NOW</button>
+            </div>
+          </div>
+          <div class="pc-info">
+            <span class="pc-tag">SS 2025 / 001</span>
+            <h3 class="pc-name">SIGNATURE OVERSIZED TEE</h3>
+            <p class="pc-desc">400gsm heavyweight cotton. Dropped shoulder. Raw-edge detail.</p>
+            <div class="pc-price-row">
+              <span class="pc-price">R 2 800</span>
+              <span class="pc-status available">● IN STOCK</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal-card" data-price="R 4 500">
+          <div class="pc-image-wrap">
+            <img src="images/img1_03.png" alt="ENVY Track Jacket" class="pc-img" />
+            <img src="images/img1_04.png" alt="" class="pc-img-hover" />
+            <div class="pc-badge">BEST SELLER</div>
+            <div class="pc-overlay">
+              <button class="pc-cta">RESERVE NOW</button>
+            </div>
+          </div>
+          <div class="pc-info">
+            <span class="pc-tag">SS 2025 / 002</span>
+            <h3 class="pc-name">CHROME TRACK JACKET</h3>
+            <p class="pc-desc">Iridescent shell. Contrast zip. Interior logo lining.</p>
+            <div class="pc-price-row">
+              <span class="pc-price">R 4 500</span>
+              <span class="pc-status available">● IN STOCK</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal-card" data-price="R 3 200">
+          <div class="pc-image-wrap">
+            <img src="images/img2_01.png" alt="ENVY Cargo Pants" class="pc-img" />
+            <img src="images/img2_02.png" alt="" class="pc-img-hover" />
+            <div class="pc-badge pc-badge-low">5 LEFT</div>
+            <div class="pc-overlay">
+              <button class="pc-cta">RESERVE NOW</button>
+            </div>
+          </div>
+          <div class="pc-info">
+            <span class="pc-tag">SS 2025 / 003</span>
+            <h3 class="pc-name">TECHNICAL CARGO PANTS</h3>
+            <p class="pc-desc">6-pocket silhouette. Ripstop canvas. ENVY debossed hardware.</p>
+            <div class="pc-price-row">
+              <span class="pc-price">R 3 200</span>
+              <span class="pc-status low">● ALMOST GONE</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal-card" data-price="R 1 900">
+          <div class="pc-image-wrap">
+            <img src="images/img1_05.png" alt="ENVY Graphic Tee" class="pc-img" />
+            <img src="images/img1_06.png" alt="" class="pc-img-hover" />
+            <div class="pc-overlay">
+              <button class="pc-cta">RESERVE NOW</button>
+            </div>
+          </div>
+          <div class="pc-info">
+            <span class="pc-tag">SS 2025 / 004</span>
+            <h3 class="pc-name">ARCHIVE GRAPHIC TEE</h3>
+            <p class="pc-desc">Vintage-wash cotton. Full chest graphic. Relaxed fit.</p>
+            <div class="pc-price-row">
+              <span class="pc-price">R 1 900</span>
+              <span class="pc-status available">● IN STOCK</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal-card" data-price="R 5 800">
+          <div class="pc-image-wrap">
+            <img src="images/img2_03.png" alt="ENVY Bomber" class="pc-img" />
+            <img src="images/img2_04.png" alt="" class="pc-img-hover" />
+            <div class="pc-badge">SIGNATURE</div>
+            <div class="pc-overlay">
+              <button class="pc-cta">RESERVE NOW</button>
+            </div>
+          </div>
+          <div class="pc-info">
+            <span class="pc-tag">SS 2025 / 005</span>
+            <h3 class="pc-name">STATEMENT BOMBER</h3>
+            <p class="pc-desc">Satin shell. Embroidered back panel. Ribbed trim in chrome.</p>
+            <div class="pc-price-row">
+              <span class="pc-price">R 5 800</span>
+              <span class="pc-status available">● IN STOCK</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal-card" data-price="R 2 400">
+          <div class="pc-image-wrap">
+            <img src="images/img1_07.png" alt="ENVY Shorts" class="pc-img" />
+            <img src="images/img1_08.png" alt="" class="pc-img-hover" />
+            <div class="pc-badge pc-badge-low">3 LEFT</div>
+            <div class="pc-overlay">
+              <button class="pc-cta">RESERVE NOW</button>
+            </div>
+          </div>
+          <div class="pc-info">
+            <span class="pc-tag">SS 2025 / 006</span>
+            <h3 class="pc-name">UTILITY SHORT</h3>
+            <p class="pc-desc">Mid-thigh cut. Triple-stitch seam. Side logo emboss.</p>
+            <div class="pc-price-row">
+              <span class="pc-price">R 2 400</span>
+              <span class="pc-status low">● ALMOST GONE</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="products-footer">
+        <p class="pf-note">All orders ship within 3–5 business days. International available.</p>
+        <button class="pf-cta" onclick="document.getElementById('notify-form').scrollIntoView({behavior:'smooth'})">NOTIFY ME FOR NEXT DROP ↓</button>
+      </div>
+    </section>
+
+    <!-- ── SECTION 4: MOSAIC / LOOKBOOK ── -->
+    <section class="section-lookbook reveal-section" id="sec-lookbook">
+      <div class="lb-header">
+        <p class="lb-eyebrow">LOOKBOOK</p>
+        <h2 class="lb-headline">THE WORLD IS<br>WATCHING</h2>
+      </div>
+
+      <div class="mosaic" id="mosaic">
+        <div class="tile t-tall" data-depth="0.4"><img src="images/img1_09.png" alt=""/><div class="tile-shine"></div><div class="tile-label">SS25 / VOLUME I</div></div>
+        <div class="tile" data-depth="0.2"><img src="images/img1_10.png" alt=""/><div class="tile-shine"></div></div>
+        <div class="tile" data-depth="0.6"><img src="images/img1_11.png" alt=""/><div class="tile-shine"></div></div>
+        <div class="tile t-wide" data-depth="0.3"><img src="images/img2_05.png" alt=""/><div class="tile-shine"></div><div class="tile-label">CHROME ERA</div></div>
+        <div class="tile" data-depth="0.5"><img src="images/img1_12.png" alt=""/><div class="tile-shine"></div></div>
+        <div class="tile t-tall" data-depth="0.7"><img src="images/img2_06.png" alt=""/><div class="tile-shine"></div><div class="tile-label">PRESENCE</div></div>
+        <div class="tile" data-depth="0.1"><img src="images/img1_13.png" alt=""/><div class="tile-shine"></div></div>
+        <div class="tile" data-depth="0.4"><img src="images/img2_07.png" alt=""/><div class="tile-shine"></div></div>
+        <div class="tile t-wide" data-depth="0.6"><img src="images/img2_08.png" alt=""/><div class="tile-shine"></div><div class="tile-label">UNAPOLOGETIC</div></div>
+        <div class="tile" data-depth="0.3"><img src="images/img1_14.png" alt=""/><div class="tile-shine"></div></div>
+        <div class="tile" data-depth="0.2"><img src="images/img2_09.png" alt=""/><div class="tile-shine"></div></div>
+        <div class="tile" data-depth="0.5"><img src="images/img1_15.png" alt=""/><div class="tile-shine"></div></div>
+        <div class="tile t-tall" data-depth="0.4"><img src="images/img2_10.png" alt=""/><div class="tile-shine"></div><div class="tile-label">ELEVATED</div></div>
+        <div class="tile" data-depth="0.6"><img src="images/img2_11.png" alt=""/><div class="tile-shine"></div></div>
+        <div class="tile t-wide" data-depth="0.1"><img src="images/img2_12.png" alt=""/><div class="tile-shine"></div><div class="tile-label">SS 2025</div></div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 5: BRAND PILLARS ── -->
+    <section class="section-pillars reveal-section" id="sec-pillars">
+      <div class="pillars-inner">
+        <p class="pill-eyebrow">WHAT SETS US APART</p>
+        <div class="pillars-grid">
+          <div class="pillar reveal-pillar">
+            <div class="pillar-num">01</div>
+            <h3 class="pillar-title">QUALITY WITHOUT COMPROMISE</h3>
+            <p class="pillar-body">Every fabric is sourced for weight, feel, and longevity. We refuse fast fashion economics. ENVY pieces are built to outlast trends.</p>
+          </div>
+          <div class="pillar reveal-pillar">
+            <div class="pillar-num">02</div>
+            <h3 class="pillar-title">DROPS, NOT COLLECTIONS</h3>
+            <p class="pillar-body">We release in limited volumes. When it's gone, it's gone. This isn't scarcity marketing — it's respect for the product.</p>
+          </div>
+          <div class="pillar reveal-pillar">
+            <div class="pillar-num">03</div>
+            <h3 class="pillar-title">PRESENCE AS A STATEMENT</h3>
+            <p class="pillar-body">ENVY isn't about wearing a logo. It's about the energy you carry. Our design language is sharp, intentional, and unmistakable.</p>
+          </div>
+          <div class="pillar reveal-pillar">
+            <div class="pillar-num">04</div>
+            <h3 class="pillar-title">COMMUNITY FIRST</h3>
+            <p class="pillar-body">Early access, exclusive pricing, and first pick on new drops — all reserved for those on the list. Join before the doors close.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 6: EMAIL CAPTURE ── -->
+    <section class="section-notify reveal-section" id="notify-form">
+      <div class="notify-inner">
+        <p class="notify-eyebrow">CLAIM YOUR SPOT</p>
+        <h2 class="notify-headline">BE FIRST.<br>OR BE LATE.</h2>
+        <p class="notify-sub">Join the ENVY inner circle. First access to new drops, exclusive pricing, and invites to events — before anyone else.</p>
+        <div class="notify-form-wrap" id="notify-form-el">
+          <input type="email" id="email-input" placeholder="YOUR EMAIL ADDRESS" autocomplete="off" />
+          <button id="notify-btn" onclick="handleNotify()">
+            <span class="btn-text">JOIN THE LIST</span>
+            <span class="btn-glow"></span>
+          </button>
+        </div>
+        <p class="notify-confirm" id="notify-confirm"></p>
+        <p class="notify-fine">No spam. Unsubscribe anytime. We hate clutter too.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <img src="images/envy-logo.png" alt="ENVY" class="footer-logo" />
+        <div class="footer-links">
+          <a href="#">INSTAGRAM</a>
+          <span>·</span>
+          <a href="#">TIKTOK</a>
+          <span>·</span>
+          <a href="#">WHATSAPP</a>
+        </div>
+        <p class="footer-copy">ALL RIGHTS RESERVED. NOT FOR APPROVAL. FOR PRESENCE. ENVY © 2025</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
